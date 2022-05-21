@@ -10,15 +10,18 @@ import { PaisService } from '../../services/pais.service';
 export class PorPaisComponent  {
 
   termino: string = ''
+  hayError:boolean = false;
 
   constructor(private paisService:PaisService) { }
 
   buscar(){
+    this.hayError = false; 
     console.log(this.termino);
     //Para que un observable se dispare, se debe tener un suscribe
     this.paisService.buscarPais(this.termino).subscribe(resp => {
-      console.log(resp);
-      
+      console.log(resp); 
+    }, (err) => {
+      this.hayError = true;
     });
   }
 
