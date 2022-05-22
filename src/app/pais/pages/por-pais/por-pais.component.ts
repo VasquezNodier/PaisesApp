@@ -15,9 +15,10 @@ export class PorPaisComponent  {
   paises : Country[] = [];
   constructor(private paisService:PaisService) { }
 
-  buscar(){
+  buscar( termino: string){
+    this.termino = termino
     this.hayError = false; 
-    console.log(this.termino);
+    // console.log(this.termino);
     //Para que un observable se dispare, se debe tener un suscribe
     this.paisService.buscarPais(this.termino).subscribe({
       next: (paises) => {
