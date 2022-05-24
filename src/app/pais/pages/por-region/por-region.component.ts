@@ -10,25 +10,34 @@ import { PaisService } from '../../services/pais.service';
 })
 export class PorRegionComponent {
 
-  termino: string = ''
+  region: string = ''
   hayError:boolean = false;
   paises : Country[] = [];
+  regiones = ['africa', 'americas', 'asia', 'europe', 'oceania'];
+  regionActiva:string = '';
 
-  constructor(private regionService:PaisService) { }
+  constructor(private paisService:PaisService) { }
 
-  sugerencias(termino:string){
+  sugerencias(region:string){
     this.hayError = false;
   }
 
-  buscar( termino: string){
-    this.termino = termino
+  activarRegion(region:string){
+
+    if (region === this.regionActiva){return;}
+    this.regionActiva = region;
+    this.paises = [];
+  }
+
+  buscar( region: string){
+    this.region = region
     this.hayError = false; 
-    // console.log(this.termino);
+    // console.log(this.region);
     //Para que un observable se dispare, se debe tener un suscribe
-    this.regionService.buscarRegion(this.termino).subscribe({
+    this.paisService.buscarRegion(this.region).subscribe({
       next: (paises) => {
-        this.paises = paises, 
-        console.log(paises);
+        this.paises = paises
+        // console.log(paises);
       }, 
       error: (error) => {
         this.hayError = true, 

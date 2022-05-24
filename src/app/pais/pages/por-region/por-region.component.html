@@ -1,16 +1,22 @@
 <h2>Por Región</h2>
 <hr>
 
+<!-- [class.btn-primary]="region == regionActiva" -->
 <div class="row">
     <div class="col">
-        <app-pais-input (onEnter)="buscar( $event )" (onDebounce)="sugerencias($event)" placeholder="Buscar region..."></app-pais-input>
+        <button *ngFor="let region of regiones" 
+                class="btn btn-outline-success me-2"
+                (click)="activarRegion(region); buscar( region )">
+            {{ region | titlecase }}
+        </button>
+        <!-- <app-pais-input (onEnter)="buscar( $event )" (onDebounce)="sugerencias($event)" placeholder="Buscar region..."></app-pais-input> -->
     </div>
 </div>
 
 <hr>
 
 <div *ngIf="hayError" class="alert alert-danger">
-    No se encontró nada con el término "{{termino}}"
+    No se encontró nada con el término "{{region}}"
 </div>
 
 <div *ngIf="!hayError && paises.length > 0" class="row">
